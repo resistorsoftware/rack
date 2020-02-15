@@ -248,9 +248,9 @@ module Rack
           rfc2822(value[:expires].clone.gmtime) if value[:expires]
         secure = "; secure"  if value[:secure]
         httponly = "; HttpOnly" if (value.key?(:httponly) ? value[:httponly] : value[:http_only])
+        puts " Same site #{value[:same_site]}"
         same_site =
           case value[:same_site]
-            puts " Same site #{value[:same_site]}"
           when false, nil
             nil
           when :none, 'None', :None
