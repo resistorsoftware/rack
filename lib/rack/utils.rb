@@ -253,7 +253,7 @@ module Rack
           case value[:same_site]
           when false, nil
             nil
-          when :none, 'None', :None
+          when :none, 'None', 'none', :None
             '; SameSite=None'
           when :lax, 'Lax', :Lax
             '; SameSite=Lax'
