@@ -250,6 +250,7 @@ module Rack
         httponly = "; HttpOnly" if (value.key?(:httponly) ? value[:httponly] : value[:http_only])
         same_site =
           case value[:same_site]
+            puts " Same site #{value[:same_site]}"
           when false, nil
             nil
           when :none, 'None', :None
