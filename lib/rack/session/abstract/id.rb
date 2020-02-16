@@ -246,6 +246,7 @@ module Rack
           @default_options = self.class::DEFAULT_OPTIONS.merge(options)
           @key = @default_options.delete(:key)
           @cookie_only = @default_options.delete(:cookie_only)
+           @same_site = @default_options.delete(:same_site)
           initialize_sid
         end
 
@@ -387,6 +388,12 @@ module Rack
             cookie[:value] = cookie_value(data)
             cookie[:expires] = Time.now + options[:expire_after] if options[:expire_after]
             cookie[:expires] = Time.now + options[:max_age] if options[:max_age]
+
+            if @same_site.respond_to? :call
+              cookie[:same_site] = @same_site.call(req, res)
+            else
+              cookie[:same_site] = @same_site
+            end
             set_cookie(req, res, cookie.merge!(options))
           end
         end
